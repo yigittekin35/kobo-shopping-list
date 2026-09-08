@@ -108,8 +108,11 @@ module.exports = async (req, res) => {
     }
 
     if (method === 'DELETE') {
-      const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-      const { id } = body || {};
+      let id = req.query.id;
+      if (!id) {
+        const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+        id = body ? body.id : null;
+      }
 
       if (!id) return res.status(400).json({ error: 'ID is required.' });
 

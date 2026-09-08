@@ -300,7 +300,7 @@
             app.state.items = newItems;
             app.renderItems();
             
-            app.request('DELETE', '/api/items', { id: id }, function(err, data) {
+            app.request('DELETE', '/api/items?id=' + encodeURIComponent(id), null, function(err, data) {
                 if (err) {
                     app.showError(err);
                     app.fetchItems(true);
