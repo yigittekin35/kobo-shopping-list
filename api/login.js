@@ -1,5 +1,5 @@
-const { createSession } = require('../lib/auth');
-const cookie = require('cookie');
+const { createSession, serializeCookie } = require('../lib/auth');
+
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -28,14 +28,13 @@ module.exports = async (req, res) => {
   }
 
   const session = createSession();
-  
-  res.setHeader('Set-Cookie', cookie.serialize('session', session, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: 90 * 24 * 60 * 60,
-    path: '/'
-  }));
+    res.setHeader('Set-Cookie', serializeCookie('session', session, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Lax',
+      maxAge: 90 * 24 * 60 * 60, // 90 days
+      path: '/'
+    }));
 
   if (req.headers['content-type'] && req.headers['content-type'].includes('application/x-www-form-urlencoded')) {
     res.writeHead(302, { Location: '/' });
