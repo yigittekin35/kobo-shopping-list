@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Household List</title>
-    <link rel="stylesheet" href="/styles.css?v=5">
+    <link rel="stylesheet" href="/styles.css?v=6">
 </head>
 <body>
     <div class="container">
@@ -31,8 +31,10 @@
         </div>
 
         <form action="/api/items" method="POST" id="add-form" class="add-form hidden">
-            <input type="text" id="new-item-name" name="name" placeholder="Add new item..." required maxlength="100" class="flex-grow">
-            <button type="submit" class="btn btn-primary">Add</button>
+            <input type="text" id="new-item-name" name="name" placeholder="Add new item..." required maxlength="100">
+            <div class="btn-wrapper">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
         </form>
 
         <div id="list-container" class="hidden">
@@ -40,7 +42,7 @@
         </div>
     </div>
     
-    <script src="/app.js?v=5"></script>
+    <script src="/app.js?v=6"></script>
     <script>
         if (window.app && window.app.init) {
             window.app.init();

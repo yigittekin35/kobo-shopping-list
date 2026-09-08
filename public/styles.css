@@ -78,24 +78,32 @@ input[type="number"] {
 }
 
 .add-form {
-    display: flex;
-    align-items: center;
+    display: table;
+    width: 100%;
     margin-bottom: 24px;
     border: none;
     padding: 0;
 }
 
 .add-form input[type="text"] {
+    display: table-cell;
+    width: 100%;
     margin-bottom: 0;
-    margin-right: 12px;
-    flex-grow: 1;
+}
+
+.add-form .btn-wrapper {
+    display: table-cell;
+    width: 1%;
+    padding-left: 12px;
+    vertical-align: top;
 }
 
 .add-form .btn {
-    width: auto;
+    width: 100%;
     min-width: 120px;
     padding: 16px 24px;
     font-size: 26px;
+    white-space: nowrap;
 }
 
 .btn {
@@ -148,9 +156,8 @@ input[type="number"] {
 }
 
 .item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: table;
+    width: 100%;
     border: none;
     border-bottom: 2px dotted #ccc;
     margin-bottom: 12px;
@@ -163,11 +170,11 @@ input[type="number"] {
 }
 
 .item-name {
+    display: table-cell;
+    vertical-align: middle;
     font-size: 26px;
     font-weight: bold;
     word-break: break-word;
-    display: block;
-    margin-bottom: 8px;
 }
 
 .item-status-label {
@@ -181,9 +188,12 @@ input[type="number"] {
 }
 
 .item-actions {
-    display: block;
-    border-top: 2px solid #ccc;
-    padding-top: 16px;
+    display: table-cell;
+    vertical-align: middle;
+    width: 1%;
+    padding-left: 16px;
+    border-top: none;
+    padding-top: 0;
 }
 
 .item-actions .btn {
