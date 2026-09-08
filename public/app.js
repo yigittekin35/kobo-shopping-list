@@ -101,23 +101,45 @@
                 var li = document.createElement('li');
                 li.className = 'item' + (item.is_purchased ? ' purchased' : '');
                 
-                var statusText = item.is_purchased ? 'Purchased' : 'To Buy';
+                var cbContainer = document.createElement('div');
+                cbContainer.className = 'checkbox-container';
                 
-                var html = '<div class="item-header">' +
-                    '<span class="item-name">' + app.escapeHtml(item.name) + '</span>' +
-                    '<span class="item-status-label">' + statusText + '</span>' +
-                    '</div>' +
-                    '<div class="item-actions">' +
-                    '<div class="quantity-controls">' +
-                    '<button type="button" class="btn btn-border-right" onclick="window.app.updateItem(\'' + item.id + '\', \'decrement\')">-</button>' +
-                    '<span class="quantity-display">' + item.quantity + '</span>' +
-                    '<button type="button" class="btn btn-border-left" onclick="window.app.updateItem(\'' + item.id + '\', \'increment\')">+</button>' +
-                    '</div>' +
-                    '<button type="button" class="btn" onclick="window.app.updateItem(\'' + item.id + '\', \'toggle\')">' + (item.is_purchased ? 'Undo' : 'Mark Purchased') + '</button>' +
-                    '<button type="button" class="btn" onclick="window.app.deleteItem(\'' + item.id + '\')">Delete</button>' +
-                    '</div>';
-
-                li.innerHTML = html;
+                var checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'item-checkbox';
+                checkbox.checked = item.is_purchased;
+                
+                (function(itemId, isPurchased) {
+                    checkbox.addEventListener('change', function() {
+                        app.toggleItem(itemId, isPurchased);
+                    });
+                })(item.id, item.is_purchased);
+                
+                cbContainer.appendChild(checkbox);
+                
+                var nameSpan = document.createElement('span');
+                nameSpan.className = 'item-name' + (item.is_purchased ? ' purchased' : '');
+                nameSpan.innerText = item.name;
+                
+                cbContainer.appendChild(nameSpan);
+                li.appendChild(cbContainer);
+                
+                var actionsDiv = document.createElement('div');
+                actionsDiv.className = 'item-actions';
+                
+                var deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'btn delete-btn';
+                deleteBtn.innerText = 'Sil';
+                
+                (function(itemId) {
+                    deleteBtn.addEventListener('click', function() {
+                        app.deleteItem(itemId);
+                    });
+                })(item.id);
+                
+                actionsDiv.appendChild(deleteBtn);
+                li.appendChild(actionsDiv);
 
                 if (item.is_purchased) {
                     purchasedList.appendChild(li);
@@ -234,14 +256,12 @@
 
         quickAdd: function(name) {
             app.hideError();
-            app.setLoading(true, false);
             
             app.request('POST', '/api/items', { name: name, quantity: 1 }, function(err, data) {
                 if (err) {
-                    app.setLoading(false, false);
                     app.showError(err);
                 } else {
-                    app.fetchItems();
+                    app.fetchItems(true);
                     app.fetchRecent(true);
                 }
             });
@@ -249,60 +269,63 @@
 
         addItem: function() {
             var nameInput = document.getElementById('new-item-name');
-            var qtyInput = document.querySelector('input[name="quantity"]');
-            
-            var name = nameInput ? nameInput.value : '';
-            var quantity = qtyInput ? parseInt(qtyInput.value, 10) : 1;
+            var name = nameInput ? nameInput.value.trim() : '';
 
-            if (!name || name.trim() === '') {
-                app.showError('Please enter a name.');
-                return;
-            }
+            if (!name) return;
 
-            app.setLoading(true, false);
             app.hideError();
 
-            app.request('POST', '/api/items', { name: name, quantity: quantity }, function(err, data) {
+            app.request('POST', '/api/items', { name: name, quantity: 1 }, function(err, data) {
                 if (err) {
-                    app.setLoading(false, false);
                     app.showError(err);
                 } else {
                     if (nameInput) nameInput.value = '';
-                    if (qtyInput) qtyInput.value = '1';
-                    app.fetchItems();
+                    app.fetchItems(true);
                     app.fetchRecent(true);
                 }
             });
         },
 
-        updateItem: function(id, action) {
+        toggleItem: function(id, isPurchased) {
             app.hideError();
-            app.setLoading(true, false);
             
+            for (var i = 0; i < app.state.items.length; i++) {
+                if (app.state.items[i].id === id) {
+                    app.state.items[i].is_purchased = !isPurchased;
+                    break;
+                }
+            }
+            app.renderItems();
+            
+            var action = isPurchased ? 'unpurchase' : 'purchase';
             app.request('PATCH', '/api/items', { id: id, action: action }, function(err, data) {
                 if (err) {
-                    app.setLoading(false, false);
                     app.showError(err);
+                    app.fetchItems(true);
                 } else {
-                    app.fetchItems();
+                    app.fetchItems(true);
                 }
             });
         },
 
         deleteItem: function(id) {
-            if (window.confirm && !window.confirm('Are you sure you want to delete this item?')) {
-                return;
-            }
-            
             app.hideError();
-            app.setLoading(true, false);
+            
+            var newItems = [];
+            for (var i = 0; i < app.state.items.length; i++) {
+                if (app.state.items[i].id !== id) {
+                    newItems.push(app.state.items[i]);
+                }
+            }
+            app.state.items = newItems;
+            app.renderItems();
             
             app.request('DELETE', '/api/items', { id: id }, function(err, data) {
                 if (err) {
-                    app.setLoading(false, false);
                     app.showError(err);
+                    app.fetchItems(true);
                 } else {
-                    app.fetchItems();
+                    app.fetchItems(true);
                 }
             });
         }

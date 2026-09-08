@@ -188,34 +188,20 @@ input[type="number"] {
     margin-bottom: 8px;
 }
 
-.quantity-controls {
-    display: inline-block;
-    margin-right: 16px;
-    margin-bottom: 8px;
-    border: 3px solid #000;
+.delete-btn {
+    padding: 6px 12px;
+    background-color: transparent;
+    color: #000;
+    border: 2px solid #000;
 }
 
-.quantity-controls .btn {
-    border: none;
-    min-width: 48px;
-    margin: 0;
+.delete-btn:active {
+    background-color: #000;
+    color: #fff;
 }
 
-.quantity-display {
-    display: inline-block;
-    padding: 0 16px;
-    font-weight: bold;
-    font-size: 24px;
-    min-width: 48px;
-    text-align: center;
-}
-
-.quantity-controls .btn-border-right {
-    border-right: 3px solid #000;
-}
-
-.quantity-controls .btn-border-left {
-    border-left: 3px solid #000;
+/* Kobo/E-ink specific tweaks */
+@media (max-width: 1024px) {
 }
 
 .item.purchased {
