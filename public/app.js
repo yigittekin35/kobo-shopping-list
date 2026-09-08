@@ -120,12 +120,7 @@
                 deleteBtn.type = 'button';
                 deleteBtn.className = 'btn delete-btn';
                 deleteBtn.innerText = 'Sil';
-                
-                (function(itemId) {
-                    deleteBtn.addEventListener('click', function() {
-                        app.deleteItem(itemId);
-                    });
-                })(item.id);
+                deleteBtn.setAttribute('onclick', 'window.app.deleteItem("' + item.id + '")');
                 
                 actionsDiv.appendChild(deleteBtn);
                 li.appendChild(actionsDiv);

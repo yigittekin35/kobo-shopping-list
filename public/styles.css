@@ -148,10 +148,13 @@ input[type="number"] {
 }
 
 .item {
-    border: 3px solid #000;
-    margin-bottom: 16px;
-    padding: 16px;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    border-bottom: 2px dotted #ccc;
+    margin-bottom: 12px;
+    padding: 12px 0;
 }
 
 .item-header {
@@ -189,10 +192,14 @@ input[type="number"] {
 }
 
 .delete-btn {
-    padding: 6px 12px;
+    padding: 8px 16px;
+    min-height: 48px;
+    min-width: 80px;
+    font-size: 22px;
     background-color: transparent;
     color: #000;
     border: 2px solid #000;
+    cursor: pointer;
 }
 
 .delete-btn:active {
