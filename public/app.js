@@ -81,48 +81,37 @@
 
         renderItems: function() {
             var unpurchasedList = document.getElementById('unpurchased-list');
-            var purchasedList = document.getElementById('purchased-list');
             var listContainer = document.getElementById('list-container');
 
-            if (!unpurchasedList || !purchasedList) return;
+            if (!unpurchasedList) return;
 
             unpurchasedList.innerHTML = '';
-            purchasedList.innerHTML = '';
 
-            if (app.state.items.length === 0) {
+            // Filter out purchased items just in case there are old ones in the DB
+            var activeItems = [];
+            for (var j = 0; j < app.state.items.length; j++) {
+                if (!app.state.items[j].is_purchased) {
+                    activeItems.push(app.state.items[j]);
+                }
+            }
+
+            if (activeItems.length === 0) {
                 if (listContainer) listContainer.className = 'hidden';
                 return;
             }
 
             if (listContainer) listContainer.className = '';
 
-            for (var i = 0; i < app.state.items.length; i++) {
-                var item = app.state.items[i];
+            for (var i = 0; i < activeItems.length; i++) {
+                var item = activeItems[i];
                 var li = document.createElement('li');
-                li.className = 'item' + (item.is_purchased ? ' purchased' : '');
-                
-                var cbContainer = document.createElement('div');
-                cbContainer.className = 'checkbox-container';
-                
-                var checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.className = 'item-checkbox';
-                checkbox.checked = item.is_purchased;
-                
-                (function(itemId, isPurchased) {
-                    checkbox.addEventListener('change', function() {
-                        app.toggleItem(itemId, isPurchased);
-                    });
-                })(item.id, item.is_purchased);
-                
-                cbContainer.appendChild(checkbox);
+                li.className = 'item';
                 
                 var nameSpan = document.createElement('span');
-                nameSpan.className = 'item-name' + (item.is_purchased ? ' purchased' : '');
+                nameSpan.className = 'item-name';
                 nameSpan.innerText = item.name;
                 
-                cbContainer.appendChild(nameSpan);
-                li.appendChild(cbContainer);
+                li.appendChild(nameSpan);
                 
                 var actionsDiv = document.createElement('div');
                 actionsDiv.className = 'item-actions';
@@ -141,11 +130,7 @@
                 actionsDiv.appendChild(deleteBtn);
                 li.appendChild(actionsDiv);
 
-                if (item.is_purchased) {
-                    purchasedList.appendChild(li);
-                } else {
-                    unpurchasedList.appendChild(li);
-                }
+                unpurchasedList.appendChild(li);
             }
         },
 
