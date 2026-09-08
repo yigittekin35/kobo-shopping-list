@@ -1,0 +1,332 @@
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    line-height: 1.5;
+    color: #000;
+    background-color: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1 { font-size: 32px; font-weight: bold; margin-bottom: 16px; }
+h2 { font-size: 26px; font-weight: bold; margin-top: 32px; margin-bottom: 16px; border-bottom: 2px solid #000; padding-bottom: 4px; }
+p { margin-bottom: 16px; }
+
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.center {
+    text-align: center;
+    max-width: 400px;
+    margin-top: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header {
+    display: block;
+    border-bottom: 4px solid #000;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.title {
+    margin-bottom: 16px;
+}
+
+.header-actions {
+    display: block;
+}
+
+.header-actions .btn {
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 22px;
+    border: 3px solid #000;
+    background-color: #fff;
+    color: #000;
+    min-height: 54px;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.add-form {
+    display: block;
+    margin-bottom: 32px;
+    border: 3px solid #000;
+    padding: 16px;
+}
+
+.add-form input[type="text"] {
+    margin-bottom: 16px;
+}
+
+.add-form input[type="number"] {
+    width: 80px;
+    margin-bottom: 16px;
+    display: inline-block;
+}
+
+.add-form .btn {
+    width: 100%;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 16px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: 3px solid #000;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    min-height: 54px;
+    min-width: 54px;
+    user-select: none;
+}
+
+.btn:active {
+    background-color: #000;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #000;
+    color: #fff;
+}
+
+.btn-primary:active {
+    background-color: #fff;
+    color: #000;
+}
+
+.btn-large {
+    padding: 16px 24px;
+    font-size: 24px;
+}
+
+.block {
+    display: block;
+    width: 100%;
+}
+
+.inline-form {
+    display: inline;
+}
+
+.item-list {
+    list-style: none;
+}
+
+.item {
+    border: 3px solid #000;
+    margin-bottom: 16px;
+    padding: 16px;
+    display: block;
+}
+
+.item-header {
+    display: block;
+    margin-bottom: 16px;
+}
+
+.item-name {
+    font-size: 26px;
+    font-weight: bold;
+    word-break: break-word;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.item-status-label {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #000;
+    padding: 4px 8px;
+    background-color: #eee;
+    color: #000;
+}
+
+.item-actions {
+    display: block;
+    border-top: 2px solid #ccc;
+    padding-top: 16px;
+}
+
+.item-actions .btn {
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.quantity-controls {
+    display: inline-block;
+    margin-right: 16px;
+    margin-bottom: 8px;
+    border: 3px solid #000;
+}
+
+.quantity-controls .btn {
+    border: none;
+    min-width: 48px;
+    margin: 0;
+}
+
+.quantity-display {
+    display: inline-block;
+    padding: 0 16px;
+    font-weight: bold;
+    font-size: 24px;
+    min-width: 48px;
+    text-align: center;
+}
+
+.quantity-controls .btn-border-right {
+    border-right: 3px solid #000;
+}
+
+.quantity-controls .btn-border-left {
+    border-left: 3px solid #000;
+}
+
+.item.purchased {
+    background-color: #f0f0f0;
+    color: #333;
+    border-color: #666;
+}
+
+.item.purchased .item-name {
+    text-decoration: line-through;
+}
+
+.item.purchased .item-status-label {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.error {
+    background-color: #fff;
+    color: #000;
+    border: 4px solid #000;
+    padding: 16px;
+    margin-bottom: 24px;
+    font-weight: bold;
+}
+
+.loading {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    padding: 32px;
+    border: 3px solid #000;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 600px) {
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .title {
+        margin-bottom: 0;
+    }
+    
+    .header-actions .btn {
+        margin-bottom: 0;
+    }
+    
+    .add-form {
+        display: flex;
+        align-items: center;
+    }
+    
+    .add-form input[type="text"] {
+        margin-bottom: 0;
+        margin-right: 16px;
+        flex-grow: 1;
+    }
+    
+    .add-form input[type="number"] {
+        margin-bottom: 0;
+        margin-right: 16px;
+    }
+    
+    .add-form .btn {
+        width: auto;
+    }
+    
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .item-name {
+        margin-bottom: 0;
+        padding-right: 16px;
+    }
+}
+
+.quick-add {
+    margin-bottom: 32px;
+}
+.quick-add-title {
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: normal;
+}
+.quick-add-list {
+    display: block;
+}
+.quick-add-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 12px 12px 0;
+    font-size: 20px;
+    border: 2px solid #000;
+    background-color: #f9f9f9;
+    color: #000;
+    cursor: pointer;
+    min-height: 48px;
+}
+.quick-add-btn:active {
+    background-color: #000;
+    color: #fff;
+}
+

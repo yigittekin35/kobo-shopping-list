@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Household List</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Household List</h1>
+            <div class="header-actions">
+                <button type="button" class="btn" id="refresh-btn">Refresh</button>
+                <form action="/api/logout" method="POST" class="inline-form">
+                    <button type="submit" class="btn">Logout</button>
+                </form>
+            </div>
+        </div>
+        
+        <div id="error-container" class="error hidden">
+            <p id="error-message"></p>
+            <button type="button" class="btn" id="retry-btn">Try Again</button>
+        </div>
+        
+        <p id="loading-message" class="loading">Loading...</p>
+        
+        <div id="quick-add-container" class="quick-add hidden">
+            <h3 class="quick-add-title">Quick Add</h3>
+            <div id="quick-add-list" class="quick-add-list"></div>
+        </div>
+
+        <form action="/api/items" method="POST" id="add-form" class="add-form hidden">
+            <input type="text" id="new-item-name" name="name" placeholder="Add new item..." required maxlength="100" class="flex-grow">
+            <input type="number" name="quantity" value="1" min="1" max="99" class="quantity-input-small">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+
+        <div id="list-container" class="hidden">
+            <h2 class="section-title">To Buy</h2>
+            <ul id="unpurchased-list" class="item-list"></ul>
+            
+            <h2 class="section-title">Purchased</h2>
+            <ul id="purchased-list" class="item-list"></ul>
+        </div>
+    </div>
+    
+    <script src="/app.js"></script>
+    <script>
+        if (window.app && window.app.init) {
+            window.app.init();
+        } else {
+            document.getElementById('loading-message').className = 'hidden';
+            document.getElementById('add-form').className = 'add-form';
+            document.getElementById('error-container').className = 'error';
+            document.getElementById('error-message').innerText = 'Your browser doesn\'t fully support this. Only adding and logging out might work.';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Household List</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container center">
+        <h1>Household List</h1>
+        <p id="error-message" class="error hidden">Invalid PIN. Please try again.</p>
+        <form action="/api/login" method="POST" id="login-form">
+            <div class="form-group">
+                <label for="pin">PIN Code:</label>
+                <input type="password" inputmode="numeric" id="pin" name="pin" required autofocus autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn-primary btn-large block">Login</button>
+        </form>
+    </div>
+    <script src="/app.js"></script>
+    <script>
+        if (window.location.search.indexOf('error=') !== -1) {
+            var el = document.getElementById('error-message');
+            if(el) { el.className = 'error'; }
+        }
+    </script>
+</body>
+</html>
