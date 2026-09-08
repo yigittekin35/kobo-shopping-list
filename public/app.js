@@ -116,8 +116,8 @@
                 var actionsDiv = document.createElement('div');
                 actionsDiv.className = 'item-actions';
                 
-                var deleteBtn = document.createElement('button');
-                deleteBtn.type = 'button';
+                var deleteBtn = document.createElement('a');
+                deleteBtn.href = 'javascript:void(0);';
                 deleteBtn.className = 'btn delete-btn';
                 deleteBtn.innerText = 'Sil';
                 deleteBtn.setAttribute('onclick', 'window.app.deleteItem("' + item.id + '")');
