@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
         .from('recent_items')
         .select('name')
         .order('last_added_at', { ascending: false })
-        .limit(10);
+        .limit(20);
 
       if (error) throw error;
       return res.status(200).json(data);
